@@ -1,53 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 import brandMark from "./assets/HHCircle.png";
 import hhPattern from "./assets/HHPattern_Repeating.png";
 import contactPattern from "./assets/HHVertical.png";
+import studioPattern from "./assets/HHVertical2.png";
 
 const services = [
   {
-    number: "01",
+    number: "",
     title: "Creative Direction",
-    text: "Campaign creative, brand direction, visual systems, and concept development built to make your message feel cohesive everywhere it appears.",
+    text: "Campaign creative, brand direction, visual systems, messaging strategy, and concept development built to make your message cohesive everywhere it appears.",
   },
   {
-    number: "02",
-    title: "Digital Production",
-    text: "Social graphics, digital ads, email creative, web assets, presentations, rapid-response content, and polished production for fast-moving teams.",
+    number: "",
+    title: "Digital Content",
+    text: "Social graphics, digital ads, email campaigns, web assets, presentations, rapid-response content, and polished production for fast-moving teams.",
   },
   {
-    number: "03",
+    number: "",
+    title: "Written Communications",
+    text: "Op-eds, press releases, articles, newsletters, website copy, campaign messaging, and strategic communications that turn complex ideas into clear, persuasive stories.",
+  },
+  {
+    number: "",
     title: "Video & Storytelling",
     text: "Short-form video, field production, interviews, reels, documentary-style storytelling, editing, motion graphics, and content built for distribution.",
   },
   {
-    number: "04",
+    number: "",
     title: "Web & Interactive",
     text: "Modern React websites, landing pages, campaign microsites, interactive tools, and custom digital experiences that look sharp and work cleanly.",
   },
-];
-
-const work = [
   {
-    category: "PUBLIC AFFAIRS",
-    title: "Issue Advocacy",
-    text: "Creative built to translate complicated policy into clear, persuasive public-facing communications.",
-  },
-  {
-    category: "POLITICAL",
-    title: "Campaign Creative",
-    text: "Fast, disciplined design and production for candidates, organizations, coalitions, and persuasion programs.",
-  },
-  {
-    category: "PRODUCTION",
-    title: "Field Storytelling",
-    text: "Photo and video production that brings people, places, industries, and policy stories to life.",
-  },
-  {
-    category: "DIGITAL",
-    title: "Web Experiences",
-    text: "Purpose-built sites and interactive digital products that feel more custom than canned.",
+    number: "",
+    title: "Print & Merchandise",
+    text: "Direct mail, brochures, signage, banners, branded merchandise, promotional products, and print materials designed to make an impact beyond the screen.",
   },
 ];
 
@@ -72,6 +60,39 @@ function ArrowIcon() {
 }
 
 function App() {
+  const [formStatus, setFormStatus] = useState("idle");
+
+  const handleContactSubmit = async (event) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    formData.set("form-name", "hill-haven-contact");
+
+    setFormStatus("sending");
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams(formData).toString(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Submission failed: ${response.status}`);
+      }
+
+      form.reset();
+      setFormStatus("success");
+    } catch (error) {
+      console.error("Netlify contact form error:", error);
+      setFormStatus("error");
+    }
+  };
+
   return (
     <div className="site-shell">
       {/* HEADER */}
@@ -91,6 +112,66 @@ function App() {
           <a href="#contact">Contact</a>
         </nav>
 
+        <div className="header-socials">
+          {/* INSTAGRAM */}
+          <a
+            href="https://instagram.com/hillhaven.jsx"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            title="Instagram"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle
+                cx="17.5"
+                cy="6.5"
+                r="1"
+                fill="currentColor"
+                stroke="none"
+              />
+            </svg>
+          </a>
+
+          {/* LINKEDIN */}
+          <a
+            href="https://www.linkedin.com/company/hill-and-haven-digital-production-llc/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            title="LinkedIn"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="3" />
+              <path d="M7 10v7" />
+              <path d="M7 7v.01" />
+              <path d="M11 17v-7" />
+              <path d="M11 13a3 3 0 0 1 6 0v4" />
+            </svg>
+          </a>
+        </div>
+
         <a className="header-cta" href="#contact">
           Start a project
           <ArrowIcon />
@@ -101,13 +182,18 @@ function App() {
         {/* HERO */}
         <section className="hero" id="top">
           <div className="hero-copy">
-            <p className="eyebrow">DIGITAL PRODUCTION + CREATIVE STUDIO</p>
+            <p className="eyebrow"></p>
 
             <h1>
-              Built for messages
-              <span>that need to move.</span>
+              The Creative Resource
+              <span>for Natural Resources.</span>
             </h1>
+          </div>
+        </section>
 
+        {/* DESCRIPTION */}
+        <section className="description">
+          <div className="description-text">
             <p className="hero-intro">
               Hill & Haven is a creative production studio for campaigns,
               causes, organizations, and brands that need sharp ideas,
@@ -122,55 +208,37 @@ function App() {
               policy, and the land.
             </p>
 
+            <br />
+
             <div className="hero-actions">
               <a className="primary-button" href="#contact">
                 Work with us
                 <ArrowIcon />
               </a>
-
-              <a className="text-link" href="#work">
-                See what we do
-              </a>
             </div>
-          </div>
-
-          <div className="hero-art" aria-hidden="true">
-            <div
-              className="pattern-panel-main"
-              style={{ backgroundImage: `url(${hhPattern})` }}
-            />
-
-            <div className="hero-label">
-              <span>HILL</span>
-              <span>&</span>
-              <span>HAVEN</span>
-            </div>
-
-            <div className="hero-index">01 / STUDIO</div>
           </div>
         </section>
 
         {/* STATEMENT */}
         <section className="statement">
-          <div className="statement-kicker">WHAT WE BELIEVE</div>
-
           <p>
-            Good creative should do more than look good. It should make an idea
-            easier to understand, harder to ignore, and more likely to move
-            someone.
+            Natural resource management, conservation, and production are
+            complex issues. Your messaging shouldn't be. Work with a partner who
+            understands the industries, policies, and people behind your
+            mission.
           </p>
         </section>
 
         {/* SERVICES */}
         <section className="services-section" id="services">
           <div className="section-heading">
-            <p className="eyebrow">CAPABILITIES</p>
-            <h2>One studio. A lot of range.</h2>
+            <p className="eyebrow">Our Services</p>
+            <h2>A Deep Reserve of Creative Capabilities</h2>
           </div>
 
           <div className="services-grid">
             {services.map((service) => (
-              <article className="service-card" key={service.number}>
+              <article className="service-card" key={service.title}>
                 <div className="service-number">{service.number}</div>
 
                 <h3>{service.title}</h3>
@@ -186,37 +254,34 @@ function App() {
         {/* ABOUT */}
         <section className="about-section" id="about">
           <div
-            className="about-visual"
-            style={{ backgroundImage: `url(${hhPattern})` }}
-          >
-            <div className="about-monogram">
-              <img src={brandMark} alt="" />
-            </div>
-          </div>
-
+            className="studio-pattern"
+            style={{ backgroundImage: `url(${studioPattern})` }}
+            aria-hidden="true"
+          />
           <div className="about-copy">
-            <p className="">THE STUDIO</p>
+            <p>THE STUDIO</p>
 
             <h2>
-              Small enough to care.
+              Good Work. No Noise.
               <span>Experienced enough to handle it.</span>
             </h2>
 
             <p>
-              Hill & Haven Digital Production, LLC is an independent creative
-              studio operating under the trade name Hill & Haven.
+              Hill & Haven is an independent creative studio specializing in
+              digital production, design, storytelling, and communications.
             </p>
 
             <p>
-              The studio brings together strategy, design, video, digital
-              production, and web development for clients who need senior-level
-              thinking without the layers of a traditional agency.
+              From Capitol Hill to the communities and industries shaping the
+              country, we help organizations communicate complex ideas with
+              clarity, creativity, and purpose.
             </p>
 
             <p>
-              The work is grounded in a simple idea: understand the audience,
-              respect the message, sweat the details, and make something people
-              want to pay attention to.
+              Our approach is straightforward: thoughtful strategy, strong
+              creative, and hands-on execution. Every project gets the attention
+              it deserves, whether it's a single graphic or a complete digital
+              campaign.
             </p>
           </div>
         </section>
@@ -225,7 +290,6 @@ function App() {
         <section className="process-section">
           <div className="section-heading">
             <p className="eyebrow">HOW WE WORK</p>
-
             <h2>Clear process. No agency theater.</h2>
           </div>
 
@@ -268,17 +332,108 @@ function App() {
         {/* CONTACT */}
         <section className="contact-section" id="contact">
           <div className="contact-inner">
-            <p className="eyebrow light">LET'S MAKE SOMETHING GOOD</p>
+            <div className="contact-heading">
+              <p className="eyebrow light">LET'S GET TO WORK</p>
 
-            <h2>
-              Have a project in mind?
-              <span>Tell us what you're building.</span>
-            </h2>
+              <h2>
+                Have a project
+                <span>in mind?</span>
+              </h2>
 
-            <a className="contact-button" href="mailto:hello@hillandhaven.com">
-              hello@hillandhaven.com
-              <ArrowIcon />
-            </a>
+              <p className="contact-description">
+                Tell us a little about what you're working on. We'd love to hear
+                from you.
+              </p>
+            </div>
+
+            <form
+              className="contact-form"
+              name="hill-haven-contact"
+              method="POST"
+              data-netlify="true"
+              onSubmit={handleContactSubmit}
+            >
+              <input
+                type="hidden"
+                name="form-name"
+                value="hill-haven-contact"
+              />
+
+              {/* NAME AND ORGANIZATION */}
+              <div className="form-row">
+                <div className="form-field">
+                  <label htmlFor="contact-name">Name *</label>
+                  <input
+                    id="contact-name"
+                    type="text"
+                    name="name"
+                    placeholder="Your name"
+                    autoComplete="name"
+                    required
+                  />
+                </div>
+
+                <div className="form-field">
+                  <label htmlFor="contact-organization">Organization</label>
+                  <input
+                    id="contact-organization"
+                    type="text"
+                    name="organization"
+                    placeholder="Your organization"
+                    autoComplete="organization"
+                  />
+                </div>
+              </div>
+
+              {/* EMAIL */}
+              <div className="form-field">
+                <label htmlFor="contact-email">Email Address *</label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  name="email"
+                  placeholder="you@example.com"
+                  autoComplete="email"
+                  required
+                />
+              </div>
+
+              {/* MESSAGE */}
+              <div className="form-field">
+                <label htmlFor="contact-message">Your Message *</label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  rows="6"
+                  placeholder="Type your message..."
+                  required
+                />
+              </div>
+
+              {/* SUBMIT BUTTON */}
+              <button
+                className="contact-submit"
+                type="submit"
+                disabled={formStatus === "sending"}
+              >
+                {formStatus === "sending" ? "Sending..." : "Send Message"}
+                <ArrowIcon />
+              </button>
+
+              {/* SUCCESS MESSAGE */}
+              {formStatus === "success" && (
+                <p className="form-feedback" role="status">
+                  Thank you! Your message has been sent.
+                </p>
+              )}
+
+              {/* ERROR MESSAGE */}
+              {formStatus === "error" && (
+                <p className="form-feedback" role="alert">
+                  Something went wrong. Please try again.
+                </p>
+              )}
+            </form>
           </div>
 
           <div

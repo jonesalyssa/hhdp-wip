@@ -108,3 +108,31 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+/* MAIN SITE CONTAINER */
+.site-shell {
+  width: 100%;
+  min-height: 100vh;
+  overflow: visible;
+}
+
+/* STICKY NAVIGATION */
+.site-header {
+  position: sticky !important;
+  top: 0;
+  z-index: 9999;
+
+  width: 100%;
+  background: rgba(245, 241, 233, 0.97);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 3px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* PREVENT ANCHOR LINKS FROM HIDING HEADINGS */
+html {
+  scroll-padding-top: 100px;
+}
