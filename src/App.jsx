@@ -528,7 +528,10 @@ function App() {
             <img src={brandMark} alt="" />
             <span>Hill & Haven</span>
           </div>
-          <p>Creative direction. Digital production. Storytelling.</p>
+          {/* <p>Creative direction. Digital production. Storytelling.</p> */}
+          <a className="footer-email" href="mailto:alyssa@hillhavendigital.com">
+            alyssa@hillhavendigital.com
+          </a>
         </div>
         <div className="footer-meta">
           <p>Hill & Haven Digital Production, LLC</p>
