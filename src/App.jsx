@@ -24,6 +24,10 @@ import printImg from "./assets/Print.png";
 
 import timberPic from "./assets/TimberPic.png";
 
+import Packages from "./Packages";
+
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
 const services = [
   {
     number: "Creative Direction",
@@ -162,7 +166,7 @@ function App() {
         <nav className="desktop-nav" aria-label="Primary navigation">
           <a href="#services">Services</a>
 
-          {/* <a href="#work">In the News</a> */}
+          <a href="#work">In the News</a>
 
           <a href="#about">Studio</a>
 
@@ -248,7 +252,6 @@ function App() {
 
       <main>
         {/* HERO */}
-
         <section className="hero" id="top">
           <div className="hero-copy">
             <p className="eyebrow"></p>
@@ -259,9 +262,7 @@ function App() {
             </h1>
           </div>
         </section>
-
         {/* DESCRIPTION */}
-
         <section className="description">
           <div className="description-text">
             <p className="hero-intro">
@@ -288,9 +289,7 @@ function App() {
             </div>
           </div>
         </section>
-
         {/* STATEMENT */}
-
         <section className="statement">
           <div className="statement-text">
             <p>
@@ -305,9 +304,7 @@ function App() {
             <img src={timberPic} alt="Timber and forestry" />
           </div>
         </section>
-
         {/* SERVICES */}
-
         <section className="services-section" id="services">
           <div className="section-heading">
             <p className="eyebrow">Our Services</p>
@@ -335,9 +332,7 @@ function App() {
             ))}
           </div>
         </section>
-
         {/* ABOUT / STUDIO */}
-
         <section className="about-section" id="about">
           <div
             className="studio-pattern"
@@ -376,8 +371,7 @@ function App() {
             </p>
           </div>
         </section>
-
-        {/* IN THE NEWS
+        IN THE NEWS
         <section className="news-section" id="work">
           <div className="news-header">
             <div>
@@ -395,31 +389,31 @@ function App() {
             {[
               {
                 category: "ENERGY & ENVIRONMENT",
-                publication: "Publication Coming Soon",
-                date: "Coming Soon",
+                publication: "RealClear Energy",
+                date: "October 14, 2026",
                 title: "I'm an Environmentalist, and I Won't Abandon Coal",
                 excerpt:
                   "A perspective on responsible coal production, conservation, and the future of natural resource management.",
-                url: "",
+                url: "https://www.realclearenergy.org/articles/2026/10/14/im_an_environmentalist_and_i_wont_abandon_coal_1211731.html",
               },
-              {
-                category: "CONSERVATION",
-                publication: "Publication Coming Soon",
-                date: "Coming Soon",
-                title: "More From the Field",
-                excerpt:
-                  "Exploring the intersection of environmental stewardship, public policy, and the people who depend on our natural resources.",
-                url: "",
-              },
-              {
-                category: "NATURAL RESOURCES",
-                publication: "Publication Coming Soon",
-                date: "Coming Soon",
-                title: "The Next Chapter",
-                excerpt:
-                  "Thoughtful commentary on the decisions shaping America's land, energy, and natural resource future.",
-                url: "",
-              },
+              // {
+              //   category: "CONSERVATION",
+              //   publication: "Publication Coming Soon",
+              //   date: "Coming Soon",
+              //   title: "More From the Field",
+              //   excerpt:
+              //     "Exploring the intersection of environmental stewardship, public policy, and the people who depend on our natural resources.",
+              //   url: "",
+              // },
+              // {
+              //   category: "NATURAL RESOURCES",
+              //   publication: "Publication Coming Soon",
+              //   date: "Coming Soon",
+              //   title: "The Next Chapter",
+              //   excerpt:
+              //     "Thoughtful commentary on the decisions shaping America's land, energy, and natural resource future.",
+              //   url: "",
+              // },
             ].map((article, index) => (
               <article className="news-card" key={index}>
                 <div className="news-card-top">
@@ -449,10 +443,8 @@ function App() {
               </article>
             ))}
           </div>
-        </section> */}
-
+        </section>
         {/* PROCESS */}
-
         <section className="process-section">
           <div className="section-heading">
             <p className="eyebrow">HOW WE WORK</p>
@@ -495,9 +487,7 @@ function App() {
             </div>
           </div>
         </section>
-
         {/* CONTACT */}
-
         <section className="contact-section" id="contact">
           <div className="contact-inner">
             <div className="contact-heading">
