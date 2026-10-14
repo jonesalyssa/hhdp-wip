@@ -66,6 +66,7 @@ html {
 
 body {
   margin: 0;
+  padding-top: 88px;
 
   min-width: 320px;
 
@@ -145,25 +146,43 @@ button:focus-visible {
 
 ========================================= */
 
-/* =========================================
-   HEADER Ã¢â‚¬â€ STICKY, SINGLE ROW
-========================================= */
+/* FIX: REMOVE EMPTY SPACE ABOVE NAVBAR */
+
+html,
+body,
+#root,
+.site-shell {
+  margin: 0;
+  padding-top: 0;
+}
+
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 9999;
+
   display: flex;
   align-items: center;
   gap: clamp(16px, 2vw, 30px);
+
   width: 100%;
   min-height: 88px;
   padding: 12px var(--page-padding);
+  box-sizing: border-box;
+
+  background-color: var(--cream);
   background-image: url("./assets/HHTopography.png");
-  /* background-opacity is not a valid CSS property */
-  box-shadow: 0 3px 18px rgba(0, 0, 0, 0.04);
+  background-position: center;
+  background-repeat: repeat;
+
+  box-shadow: 0 3px 18px rgba(0, 0, 0, 0.08);
+
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
+
 .brand {
   display: inline-flex;
   align-items: center;
@@ -296,6 +315,132 @@ button:focus-visible {
 .primary-button:hover .arrow-icon,
 .contact-button:hover .arrow-icon {
   transform: translateX(6px);
+}
+
+/* =========================================
+   RESPONSIVE NAVIGATION — RIGHT ALIGNED
+========================================= */
+
+.site-header {
+  justify-content: space-between;
+}
+
+.brand {
+  margin-right: auto;
+}
+
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(20px, 2.5vw, 40px);
+  margin-left: auto;
+  min-width: 0;
+}
+
+.nav-wrapper .desktop-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(15px, 1.8vw, 30px);
+  margin-left: 0;
+}
+
+.nav-wrapper .header-socials {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 13px;
+  flex-shrink: 0;
+}
+
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.menu-toggle svg {
+  display: block;
+  width: 27px;
+  height: 27px;
+}
+
+@media (max-width: 1100px) {
+  .site-header {
+    min-height: 80px;
+    justify-content: space-between;
+  }
+
+  .brand {
+    margin-right: auto;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    margin-left: auto;
+  }
+
+  .nav-wrapper {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin: 0;
+    padding: 24px var(--page-padding) 30px;
+    background: var(--cream);
+    background-image: url("./assets/HHTopography.png");
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 22px;
+  }
+
+  .nav-wrapper.nav-open {
+    display: flex;
+  }
+
+  .nav-wrapper .desktop-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    width: 100%;
+    margin: 0;
+  }
+
+  .nav-wrapper .desktop-nav a {
+    display: block;
+    padding: 16px 0;
+    font-size: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-wrapper .header-socials {
+    justify-content: flex-start;
+    gap: 22px;
+    padding-top: 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    min-height: 72px;
+  }
+  .brand-name {
+    font-size: 20px;
+  }
 }
 
 /* =========================================
@@ -1517,10 +1662,6 @@ button:focus-visible {
 @media (max-width: 1200px) {
   .site-header {
     grid-template-columns: 1fr auto;
-  }
-
-  .desktop-nav {
-    display: none;
   }
 
   .hero {
