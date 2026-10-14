@@ -24,8 +24,6 @@ import printImg from "./assets/Print.png";
 
 import timberPic from "./assets/TimberPic.png";
 
-import Packages from "./Packages";
-
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 const services = [
