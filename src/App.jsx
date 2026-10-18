@@ -1,5 +1,9 @@
 import React, { useState } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
 import "./App.css";
+import Packages from "./Packages/Packages";
+
 import brandMark from "./assets/HHCircle.png";
 import contactPattern from "./assets/ContactPattern.png";
 import studioCows from "./assets/HHVertical2.png";
@@ -11,6 +15,11 @@ import webImg from "./assets/Web.png";
 import videoImg from "./assets/Video.png";
 import printImg from "./assets/Print.png";
 import timberPic from "./assets/TimberPic.png";
+
+// ==========================================
+// SERVICES
+// ==========================================
+
 const services = [
   {
     number: "Creative Direction",
@@ -49,6 +58,11 @@ const services = [
     image: printImg,
   },
 ];
+
+// ==========================================
+// ARROW ICON
+// ==========================================
+
 function ArrowIcon() {
   return (
     <svg
@@ -68,15 +82,29 @@ function ArrowIcon() {
     </svg>
   );
 }
-function App() {
+
+// ==========================================
+// HOME PAGE
+// ==========================================
+
+function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [formStatus, setFormStatus] = useState("idle");
+
+  // ========================================
+  // NETLIFY CONTACT FORM
+  // ========================================
+
   const handleContactSubmit = async (event) => {
     event.preventDefault();
+
     const form = event.currentTarget;
     const formData = new FormData(form);
+
     formData.set("form-name", "hill-haven-contact");
+
     setFormStatus("sending");
+
     try {
       const response = await fetch("/", {
         method: "POST",
@@ -85,9 +113,11 @@ function App() {
         },
         body: new URLSearchParams(formData).toString(),
       });
+
       if (!response.ok) {
         throw new Error(`Submission failed: ${response.status}`);
       }
+
       form.reset();
       setFormStatus("success");
     } catch (error) {
@@ -95,22 +125,29 @@ function App() {
       setFormStatus("error");
     }
   };
+
   return (
     <div className="site-shell">
-      {/* HEADER */}
+      {/* ====================================
+          HEADER
+      ==================================== */}
+
       <header className="site-header">
-        <a
+        <Link
           className="brand"
-          href="#top"
+          to="/"
           aria-label="Hill & Haven home"
           onClick={() => setMenuOpen(false)}
         >
           <span className="brand-mark">
             <img src={brandMark} alt="" />
           </span>
+
           <span className="brand-name">Hill & Haven</span>
-        </a>
+        </Link>
+
         {/* HAMBURGER BUTTON */}
+
         <button
           className="menu-toggle"
           type="button"
@@ -141,7 +178,9 @@ function App() {
             </svg>
           )}
         </button>
-        {/* NAVIGATION WRAPPER */}
+
+        {/* NAVIGATION */}
+
         <div
           id="primary-navigation"
           className={`nav-wrapper ${menuOpen ? "nav-open" : ""}`}
@@ -150,18 +189,29 @@ function App() {
             <a href="#services" onClick={() => setMenuOpen(false)}>
               Services
             </a>
+
+            {/* <Link to="/packages" onClick={() => setMenuOpen(false)}>
+              Packages
+            </Link> */}
+
             <a href="#work" onClick={() => setMenuOpen(false)}>
               In the News
             </a>
+
             <a href="#about" onClick={() => setMenuOpen(false)}>
               Studio
             </a>
+
             <a href="#contact" onClick={() => setMenuOpen(false)}>
               Contact
             </a>
           </nav>
+
+          {/* SOCIAL LINKS */}
+
           <div className="header-socials">
             {/* INSTAGRAM */}
+
             <a
               href="https://instagram.com/hillhaven.jsx"
               target="_blank"
@@ -187,7 +237,9 @@ function App() {
                 />
               </svg>
             </a>
+
             {/* LINKEDIN */}
+
             <a
               href="https://www.linkedin.com/company/hill-and-haven-digital-production-llc/"
               target="_blank"
@@ -212,18 +264,27 @@ function App() {
           </div>
         </div>
       </header>
+
+      {/* ====================================
+          MAIN CONTENT
+      ==================================== */}
+
       <main>
         {/* HERO */}
+
         <section className="hero" id="top">
           <div className="hero-copy">
             <p className="eyebrow"></p>
+
             <h1>
               The Creative Resource
               <span>for Natural Resources.</span>
             </h1>
           </div>
         </section>
+
         {/* DESCRIPTION */}
+
         <section className="description">
           <div className="description-text">
             <p className="hero-intro">
@@ -239,7 +300,9 @@ function App() {
               helping organizations working at the intersection of people,
               policy, and the land.
             </p>
+
             <br />
+
             <div className="hero-actions">
               <a className="primary-button" href="#contact">
                 Let's break ground
@@ -248,7 +311,9 @@ function App() {
             </div>
           </div>
         </section>
+
         {/* STATEMENT */}
+
         <section className="statement">
           <div className="statement-text">
             <p>
@@ -258,16 +323,23 @@ function App() {
               people behind your mission.
             </p>
           </div>
+
           <div className="statement-image">
             <img src={timberPic} alt="Timber and forestry" />
           </div>
         </section>
-        {/* SERVICES */}
+
+        {/* ====================================
+            SERVICES
+        ==================================== */}
+
         <section className="services-section" id="services">
           <div className="section-heading">
             <p className="eyebrow">Our Services</p>
+
             <h2>A Deep Reserve of Creative Capabilities</h2>
           </div>
+
           <div className="services-grid">
             {services.map((service) => (
               <article
@@ -278,38 +350,53 @@ function App() {
                 }}
               >
                 <div className="service-number">{service.number}</div>
+
                 <h3>{service.title}</h3>
+
                 <p>{service.text}</p>
+
                 <div className="service-line" />
               </article>
             ))}
           </div>
         </section>
-        {/* ABOUT / STUDIO */}
+
+        {/* ====================================
+            ABOUT / STUDIO
+        ==================================== */}
+
         <section className="about-section" id="about">
           <div
             className="studio-pattern"
-            style={{ backgroundImage: `url(${aboutPattern})` }}
+            style={{
+              backgroundImage: `url(${aboutPattern})`,
+            }}
             aria-hidden="true"
           />
+
           <div className="studio-photo">
             <img src={studioCows} alt="Cattle in a rural landscape" />
           </div>
+
           <div className="about-copy">
             <p className="eyebrow">THE STUDIO</p>
+
             <h2>
               Good Work. No Bull.
               <span>Not Our First Rodeo.</span>
             </h2>
+
             <p>
               Hill & Haven is an independent creative studio specializing in
               digital production, design, storytelling, and communications.
             </p>
+
             <p>
               From Capitol Hill to the communities and industries shaping the
               country, we help organizations communicate complex ideas with
               clarity, creativity, and purpose.
             </p>
+
             <p>
               Our approach is straightforward: thoughtful strategy, strong
               creative, and hands-on execution. Every project gets the attention
@@ -318,18 +405,25 @@ function App() {
             </p>
           </div>
         </section>
-        {/* IN THE NEWS */}
+
+        {/* ====================================
+            IN THE NEWS
+        ==================================== */}
+
         <section className="news-section" id="work">
           <div className="news-header">
             <div>
               <p className="eyebrow">IN THE NEWS</p>
+
               <h2>From the Field.</h2>
             </div>
+
             <p className="news-intro">
               Perspectives on natural resources, energy, conservation, and the
               policies shaping the land we depend on.
             </p>
           </div>
+
           <div className="news-grid">
             {[
               {
@@ -341,35 +435,22 @@ function App() {
                   "A perspective on responsible coal production, conservation, and the future of natural resource management.",
                 url: "https://www.realclearenergy.org/articles/2026/10/14/im_an_environmentalist_and_i_wont_abandon_coal_1211731.html",
               },
-              // {
-              //   category: "CONSERVATION",
-              //   publication: "Publication Coming Soon",
-              //   date: "Coming Soon",
-              //   title: "More From the Field",
-              //   excerpt:
-              //     "Exploring the intersection of environmental stewardship, public policy, and the people who depend on our natural resources.",
-              //   url: "",
-              // },
-              // {
-              //   category: "NATURAL RESOURCES",
-              //   publication: "Publication Coming Soon",
-              //   date: "Coming Soon",
-              //   title: "The Next Chapter",
-              //   excerpt:
-              //     "Thoughtful commentary on the decisions shaping America's land, energy, and natural resource future.",
-              //   url: "",
-              // },
             ].map((article, index) => (
               <article className="news-card" key={index}>
                 <div className="news-card-top">
                   <span className="news-category">{article.category}</span>
+
                   <span className="news-date">{article.date}</span>
                 </div>
+
                 <div className="news-card-content">
                   <p className="news-publication">{article.publication}</p>
+
                   <h3>{article.title}</h3>
+
                   <p className="news-excerpt">{article.excerpt}</p>
                 </div>
+
                 {article.url && (
                   <a
                     className="news-link"
@@ -385,53 +466,76 @@ function App() {
             ))}
           </div>
         </section>
-        {/* PROCESS */}
-        <section className="process-section">
+
+        {/* ====================================
+            PROCESS
+        ==================================== */}
+
+        {/*  <section className="process-section">
           <div className="section-heading">
             <p className="eyebrow">HOW WE WORK</p>
+
             <h2>From First Cut To Final Finish.</h2>
           </div>
+
           <div className="process-grid">
             <div className="process-item">
               <span>01</span>
+
               <h3>Survey The Land.</h3>
+
               <p>
                 We start with the audience, objective, constraints, and what the
                 work actually needs to accomplish.
               </p>
             </div>
+
             <div className="process-item">
               <span>02</span>
+
               <h3>Strike Gold.</h3>
+
               <p>
                 We turn the strategy into a strong visual and verbal direction
                 before overproducing the wrong thing.
               </p>
             </div>
+
             <div className="process-item">
               <span>03</span>
+
               <h3>Get Our Hands Dirty.</h3>
+
               <p>
                 Design, production, editing, development, revisions, delivery.
                 Fast when it needs to be. Detailed when it matters.
               </p>
             </div>
           </div>
-        </section>
-        {/* CONTACT */}
+        </section> */}
+
+        {/* ====================================
+            CONTACT
+        ==================================== */}
+
         <section className="contact-section" id="contact">
           <div className="contact-inner">
             <div className="contact-heading">
               <p className="eyebrow light">LET'S BREAK GROUND</p>
+
               <h2>
                 Have a project
                 <span>in mind?</span>
               </h2>
+
               <p className="contact-description">
                 Tell us a little about what you're working on. We'd love to hear
                 from you.
               </p>
             </div>
+
+            {/* NETLIFY FORM */}
+
             <form
               className="contact-form"
               name="hill-haven-contact"
@@ -444,10 +548,13 @@ function App() {
                 name="form-name"
                 value="hill-haven-contact"
               />
+
               {/* NAME AND ORGANIZATION */}
+
               <div className="form-row">
                 <div className="form-field">
                   <label htmlFor="contact-name">Name *</label>
+
                   <input
                     id="contact-name"
                     type="text"
@@ -457,8 +564,10 @@ function App() {
                     required
                   />
                 </div>
+
                 <div className="form-field">
                   <label htmlFor="contact-organization">Organization</label>
+
                   <input
                     id="contact-organization"
                     type="text"
@@ -468,9 +577,12 @@ function App() {
                   />
                 </div>
               </div>
+
               {/* EMAIL */}
+
               <div className="form-field">
                 <label htmlFor="contact-email">Email Address *</label>
+
                 <input
                   id="contact-email"
                   type="email"
@@ -480,9 +592,12 @@ function App() {
                   required
                 />
               </div>
+
               {/* MESSAGE */}
+
               <div className="form-field">
                 <label htmlFor="contact-message">Your Message *</label>
+
                 <textarea
                   id="contact-message"
                   name="message"
@@ -491,22 +606,29 @@ function App() {
                   required
                 />
               </div>
-              {/* SUBMIT BUTTON */}
+
+              {/* SUBMIT */}
+
               <button
                 className="contact-submit"
                 type="submit"
                 disabled={formStatus === "sending"}
               >
                 {formStatus === "sending" ? "Sending..." : "Send Message"}
+
                 <ArrowIcon />
               </button>
-              {/* SUCCESS MESSAGE */}
+
+              {/* SUCCESS */}
+
               {formStatus === "success" && (
                 <p className="form-feedback" role="status">
                   Thank you! Your message has been sent.
                 </p>
               )}
-              {/* ERROR MESSAGE */}
+
+              {/* ERROR */}
+
               {formStatus === "error" && (
                 <p className="form-feedback" role="alert">
                   Something went wrong. Please try again.
@@ -514,37 +636,70 @@ function App() {
               )}
             </form>
           </div>
+
           <div
             className="contact-pattern"
-            style={{ backgroundImage: `url(${contactPattern})` }}
+            style={{
+              backgroundImage: `url(${contactPattern})`,
+            }}
             aria-hidden="true"
           />
         </section>
       </main>
-      {/* FOOTER */}
+
+      {/* ====================================
+          FOOTER
+      ==================================== */}
+
       <footer className="site-footer">
         <div>
           <div className="footer-brand">
             <img src={brandMark} alt="" />
+
             <span>Hill & Haven</span>
           </div>
-          {/* <p>Creative direction. Digital production. Storytelling.</p> */}
+
           <a className="footer-email" href="mailto:alyssa@hillhavendigital.com">
             alyssa@hillhavendigital.com
           </a>
         </div>
+
         <div className="footer-meta">
           <p>Hill & Haven Digital Production, LLC</p>
+
           <p>Operating as Hill & Haven</p>
         </div>
+
         <div className="footer-links">
           <a href="#services">Services</a>
+
+          {/* <Link to="/packages">Packages</Link> */}
+
           <a href="#work">Work</a>
+
           <a href="#about">Studio</a>
+
           <a href="#contact">Contact</a>
         </div>
       </footer>
     </div>
   );
 }
+
+// ==========================================
+// APP ROUTER
+// ==========================================
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route path="/packages" element={<Packages />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
 export default App;
