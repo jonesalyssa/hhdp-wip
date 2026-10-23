@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Cemetery from "./Publications/Cemetery/Cemetery";
 
 import {
   BrowserRouter,
@@ -349,6 +350,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/packages" element={<Packages />} />
+          <Route path="/what-the-dead-can-teach-us" element={<Cemetery />} />
         </Route>
       </Routes>
     </BrowserRouter>
@@ -592,6 +594,16 @@ function Home() {
                   "A perspective on responsible coal production, conservation, and the future of natural resource management.",
 
                 url: "https://www.realclearenergy.org/articles/2026/10/14/im_an_environmentalist_and_i_wont_abandon_coal_1211731.html",
+              },
+
+              {
+                category: "LAND MANAGEMENT & CONSERVATION",
+                publication: "Hill & Haven",
+                date: "October 23, 2026",
+                title: "What the Dead Can Teach Us About Land Management",
+                excerpt:
+                  "How America's historic cemeteries became unexpected spaces for conservation, biodiversity, and public land management.",
+                url: "/what-the-dead-can-teach-us",
               },
             ].map((article, index) => (
               <article className="news-card" key={index}>
