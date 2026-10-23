@@ -79,6 +79,17 @@ const projects = Object.entries(imageModules)
     }),
   );
 
+const shuffledProjects = [...projects];
+
+for (let i = shuffledProjects.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+
+  [shuffledProjects[i], shuffledProjects[j]] = [
+    shuffledProjects[j],
+    shuffledProjects[i],
+  ];
+}
+
 // --------------------------------------
 // PORTFOLIO COMPONENT
 // --------------------------------------
@@ -89,7 +100,7 @@ export default function Portfolio() {
 
   const filtered = useMemo(() => {
     return activeCategory === "all"
-      ? projects
+      ? shuffledProjects
       : projects.filter((project) => project.category === activeCategory);
   }, [activeCategory]);
 
@@ -274,28 +285,6 @@ export default function Portfolio() {
       {/* =========================================
           PORTFOLIO CTA
       ========================================= */}
-
-      <section className="portfolio-cta">
-        <div className="portfolio-cta-inner">
-          <p className="portfolio-eyebrow">YOUR TURN</p>
-
-          <h2>
-            Got something
-            <br />
-            <em>in the works?</em>
-          </h2>
-
-          <p>
-            Like what you see? Through Hill & Haven, I help organizations turn
-            ideas into creative materials that communicate, connect, and leave
-            an impression.
-          </p>
-
-          <a href="/#contact" className="portfolio-cta-button">
-            LET'S GET TO WORK <span>↗</span>
-          </a>
-        </div>
-      </section>
 
       {/* =========================================
           PERSONAL PORTFOLIO ATTRIBUTION

@@ -1,16 +1,30 @@
-/* HILL & HAVEN — PORTFOLIO | Uses global App.css design tokens */
+/* =========================================
+   HILL & HAVEN — PERSONAL PORTFOLIO
+   Uses global App.css design tokens
+========================================= */
+
 .portfolio-page {
   background: var(--cream);
   color: var(--ink);
   font-family: var(--font-body);
   overflow: hidden;
 }
+
+.portfolio-page * {
+  box-sizing: border-box;
+}
+
+/* =========================================
+   PORTFOLIO HERO
+========================================= */
+
 .portfolio-hero {
   position: relative;
   isolation: isolate;
   padding: clamp(145px, 15vw, 220px) var(--page-padding) clamp(75px, 9vw, 135px);
   background: var(--cream);
 }
+
 .portfolio-hero::before {
   content: "";
   position: absolute;
@@ -20,13 +34,20 @@
   opacity: 0.28;
   pointer-events: none;
 }
+
 .portfolio-hero-inner,
 .portfolio-gallery-inner,
-.portfolio-cta-inner {
+.portfolio-cta-inner,
+.portfolio-disclaimer-inner {
   width: 100%;
   max-width: 1500px;
   margin-inline: auto;
 }
+
+/* =========================================
+   HERO TYPOGRAPHY
+========================================= */
+
 .portfolio-eyebrow {
   margin: 0 0 26px;
   color: var(--orange);
@@ -36,6 +57,7 @@
   letter-spacing: 0.15em;
   text-transform: uppercase;
 }
+
 .portfolio-hero h1 {
   margin: 0;
   max-width: 1100px;
@@ -45,10 +67,12 @@
   line-height: 1.02;
   letter-spacing: -0.055em;
 }
+
 .portfolio-hero h1 em {
   color: var(--orange);
   font-style: normal;
 }
+
 .portfolio-hero-bottom {
   display: flex;
   align-items: end;
@@ -56,6 +80,7 @@
   gap: 30px;
   margin-top: clamp(35px, 5vw, 70px);
 }
+
 .portfolio-hero-bottom p {
   max-width: 540px;
   margin: 0;
@@ -63,16 +88,27 @@
   font-size: clamp(16px, 1.4vw, 19px);
   line-height: 1.8;
 }
+
 .portfolio-hero-mark {
   color: var(--orange);
   font-family: var(--font-display);
   font-size: clamp(55px, 6vw, 90px);
   line-height: 1;
 }
+
+/* =========================================
+   PORTFOLIO GALLERY
+========================================= */
+
 .portfolio-gallery-section {
   padding: clamp(65px, 8vw, 120px) var(--page-padding) clamp(90px, 10vw, 160px);
   background: var(--cream);
 }
+
+/* =========================================
+   FILTER TOOLBAR
+========================================= */
+
 .portfolio-toolbar {
   display: flex;
   align-items: center;
@@ -82,11 +118,13 @@
   padding: 0 0 24px;
   border-bottom: 1px solid var(--line);
 }
+
 .portfolio-filters {
   display: flex;
   flex-wrap: wrap;
   gap: 9px;
 }
+
 .portfolio-filter {
   padding: 12px 19px;
   border: 1px solid var(--line);
@@ -104,15 +142,18 @@
     color 250ms ease,
     border-color 250ms ease;
 }
+
 .portfolio-filter:hover {
   border-color: var(--orange);
   color: var(--orange);
 }
+
 .portfolio-filter.active {
   border-color: var(--orange);
   background: var(--orange);
   color: var(--white);
 }
+
 .portfolio-count {
   color: var(--muted);
   font-size: 11px;
@@ -120,10 +161,16 @@
   letter-spacing: 0.12em;
   white-space: nowrap;
 }
+
+/* =========================================
+   MASONRY GALLERY
+========================================= */
+
 .portfolio-masonry {
   columns: 4;
   column-gap: 18px;
 }
+
 .portfolio-tile {
   position: relative;
   display: block;
@@ -140,15 +187,22 @@
   break-inside: avoid;
   -webkit-column-break-inside: avoid;
 }
+
 .portfolio-tile img {
   display: block;
   width: 100%;
   height: auto;
   transition: transform 750ms var(--ease);
 }
+
 .portfolio-tile:hover img {
   transform: scale(1.055);
 }
+
+/* =========================================
+   TILE OVERLAY
+========================================= */
+
 .portfolio-tile-overlay {
   position: absolute;
   inset: 0;
@@ -166,10 +220,12 @@
   opacity: 0;
   transition: opacity 300ms ease;
 }
+
 .portfolio-tile:hover .portfolio-tile-overlay,
 .portfolio-tile:focus-visible .portfolio-tile-overlay {
   opacity: 1;
 }
+
 .portfolio-tile-category {
   display: block;
   margin-bottom: 9px;
@@ -179,14 +235,7 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
-.portfolio-tile-overlay h3 {
-  margin: 0;
-  color: var(--white);
-  font-family: var(--font-display);
-  font-size: clamp(20px, 2vw, 29px);
-  line-height: 1.15;
-  letter-spacing: -0.035em;
-}
+
 .portfolio-tile-arrow {
   display: grid;
   place-items: center;
@@ -197,11 +246,54 @@
   color: var(--ink);
   font-size: 21px;
 }
+
+/* =========================================
+   VIDEO COVER TILES
+========================================= */
+
+/*
+   Video covers use the same masonry layout
+   as regular portfolio images.
+
+   The play icon is provided by Portfolio.jsx.
+*/
+
+.portfolio-tile:has(.portfolio-tile-arrow) {
+  position: relative;
+}
+
+.portfolio-tile-arrow {
+  transition:
+    background 250ms ease,
+    color 250ms ease,
+    transform 250ms var(--ease);
+}
+
+.portfolio-tile:hover .portfolio-tile-arrow {
+  background: var(--orange);
+  color: var(--white);
+  transform: translateY(-3px);
+}
+
+.portfolio-tile:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 4px;
+}
+
+/* =========================================
+   EMPTY CATEGORY
+========================================= */
+
 .portfolio-empty {
   padding: 70px 0;
   color: var(--muted);
   text-align: center;
 }
+
+/* =========================================
+   PORTFOLIO CTA
+========================================= */
+
 .portfolio-cta {
   position: relative;
   isolation: isolate;
@@ -209,6 +301,7 @@
   background: var(--ink);
   color: var(--white);
 }
+
 .portfolio-cta::before {
   content: "";
   position: absolute;
@@ -218,12 +311,15 @@
   opacity: 0.32;
   pointer-events: none;
 }
+
 .portfolio-cta-inner {
   text-align: left;
 }
+
 .portfolio-cta .portfolio-eyebrow {
   color: var(--pale-orange);
 }
+
 .portfolio-cta h2 {
   margin: 0 0 30px;
   font-family: var(--font-display);
@@ -231,10 +327,12 @@
   line-height: 1.04;
   letter-spacing: -0.055em;
 }
+
 .portfolio-cta h2 em {
   color: #d3a57e;
   font-style: normal;
 }
+
 .portfolio-cta-inner > p:not(.portfolio-eyebrow) {
   max-width: 530px;
   margin: 0 0 35px;
@@ -242,6 +340,7 @@
   font-size: 17px;
   line-height: 1.8;
 }
+
 .portfolio-cta-button {
   display: inline-flex;
   align-items: center;
@@ -255,17 +354,54 @@
   font-weight: 800;
   letter-spacing: 0.09em;
   text-transform: uppercase;
+  text-decoration: none;
   transition:
     background 300ms ease,
     transform 350ms var(--ease);
 }
+
 .portfolio-cta-button:hover {
   background: var(--orange-dark);
   transform: translateY(-4px);
 }
+
 .portfolio-cta-button span {
   font-size: 22px;
 }
+
+/* =========================================
+   PERSONAL PORTFOLIO ATTRIBUTION
+========================================= */
+
+.portfolio-disclaimer {
+  padding: 45px var(--page-padding) 55px;
+  background: var(--cream-dark);
+  border-top: 1px solid var(--line);
+}
+
+.portfolio-disclaimer-label {
+  margin: 0 0 14px;
+  color: var(--orange);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.portfolio-disclaimer-text {
+  max-width: 850px;
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+/* =========================================
+   IMAGE LIGHTBOX
+========================================= */
+
 .portfolio-lightbox {
   position: fixed;
   inset: 0;
@@ -276,12 +412,14 @@
   padding: 65px;
   background: rgba(15, 16, 14, 0.97);
 }
+
 .portfolio-lightbox-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: min(1100px, 85vw);
 }
+
 .portfolio-lightbox-content img {
   display: block;
   max-width: 100%;
@@ -290,6 +428,7 @@
   height: auto;
   object-fit: contain;
 }
+
 .portfolio-lightbox-caption {
   display: flex;
   justify-content: space-between;
@@ -302,6 +441,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
+
 .portfolio-lightbox-close,
 .portfolio-lightbox-prev,
 .portfolio-lightbox-next {
@@ -311,11 +451,13 @@
   color: var(--white);
   cursor: pointer;
 }
+
 .portfolio-lightbox-close {
   top: 18px;
   right: 32px;
   font-size: 44px;
 }
+
 .portfolio-lightbox-prev,
 .portfolio-lightbox-next {
   top: 50%;
@@ -323,77 +465,132 @@
   transform: translateY(-50%);
   font-size: 38px;
 }
+
 .portfolio-lightbox-prev {
   left: 18px;
 }
+
 .portfolio-lightbox-next {
   right: 18px;
 }
+
+/* =========================================
+   TABLET — 1150px
+========================================= */
+
 @media (max-width: 1150px) {
   .portfolio-masonry {
     columns: 3;
   }
 }
+
+/* =========================================
+   TABLET — 800px
+========================================= */
+
 @media (max-width: 800px) {
   .portfolio-masonry {
     columns: 2;
   }
+
   .portfolio-hero {
     padding-top: 140px;
   }
 }
+
+/* =========================================
+   MOBILE — 600px
+========================================= */
+
 @media (max-width: 600px) {
   .portfolio-hero {
     padding-top: 125px;
   }
+
   .portfolio-hero h1 {
     font-size: clamp(46px, 11vw, 68px);
   }
+
   .portfolio-hero-mark {
     display: none;
   }
+
   .portfolio-toolbar {
     align-items: flex-start;
     flex-direction: column;
   }
+
   .portfolio-filter {
     padding: 10px 12px;
     font-size: 10px;
   }
+
   .portfolio-masonry {
     column-gap: 10px;
   }
+
   .portfolio-tile {
     margin-bottom: 10px;
   }
+
   .portfolio-tile-overlay {
     padding: 10px;
   }
-  .portfolio-tile-overlay h3 {
-    font-size: 16px;
+
+  .portfolio-tile-category {
+    font-size: 9px;
+    margin-bottom: 0;
   }
+
   .portfolio-tile-arrow {
     display: none;
   }
+
+  /* ATTRIBUTION */
+
+  .portfolio-disclaimer {
+    padding: 35px var(--page-padding) 45px;
+  }
+
+  .portfolio-disclaimer-label {
+    font-size: 10px;
+  }
+
+  .portfolio-disclaimer-text {
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  /* LIGHTBOX */
+
   .portfolio-lightbox {
     padding: 65px 12px;
   }
+
   .portfolio-lightbox-content {
     max-width: 100%;
   }
+
   .portfolio-lightbox-prev,
   .portfolio-lightbox-next {
     top: auto;
     bottom: 10px;
     transform: none;
   }
+
   .portfolio-lightbox-prev {
     left: 8px;
   }
+
   .portfolio-lightbox-next {
     right: 8px;
   }
 }
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
 @media (prefers-reduced-motion: reduce) {
   .portfolio-page *,
   .portfolio-page *::before,
