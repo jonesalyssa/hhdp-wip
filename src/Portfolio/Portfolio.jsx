@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect } from "react";
 import "./Portfolio.css";
 
 // --------------------------------------
-// IMPORT ALL PORTFOLIO IMAGES
+// IMPORT PORTFOLIO IMAGES
 // --------------------------------------
 
 const imageModules = import.meta.glob("/src/assets/**/*.{png,jpg,jpeg,webp}", {
@@ -12,19 +12,20 @@ const imageModules = import.meta.glob("/src/assets/**/*.{png,jpg,jpeg,webp}", {
 });
 
 // --------------------------------------
-// YOUTUBE VIDEO LINKS
-// Replace these with your actual links.
+// YOUTUBE LINKS
+// Replace with your actual video URLs.
+// Covers are in src/assets/Video/
 // --------------------------------------
 
 const videoLinks = {
-  Video1: "https://youtu.be/u1qbaJrt-R8",
-  Video2: "https://youtu.be/JFz7sDVZ4QM",
-  Video3: "https://youtu.be/7jAmnT6NHpU",
-  Video4: "https://youtu.be/AzKAXt3eGoo",
+  Video1: "https://www.youtube.com/watch?v=VIDEO_ID_1",
+  Video2: "https://www.youtube.com/watch?v=VIDEO_ID_2",
+  Video3: "https://www.youtube.com/watch?v=VIDEO_ID_3",
+  Video4: "https://www.youtube.com/watch?v=VIDEO_ID_4",
 };
 
 // --------------------------------------
-// PORTFOLIO CATEGORIES
+// CATEGORIES
 // --------------------------------------
 
 const categories = [
@@ -92,17 +93,23 @@ export default function Portfolio() {
       : projects.filter((project) => project.category === activeCategory);
   }, [activeCategory]);
 
-  const selected = selectedIndex !== null ? filtered[selectedIndex] : null;
+  // Only photos are navigated in the lightbox.
+  // Video covers open their YouTube links directly.
+  const photoProjects = filtered.filter((project) => project.type === "image");
+
+  const selected = selectedIndex !== null ? photoProjects[selectedIndex] : null;
 
   const closeLightbox = () => setSelectedIndex(null);
 
   const navigate = (direction) => {
     setSelectedIndex((current) => {
-      if (current === null || filtered.length === 0) {
+      if (current === null || photoProjects.length === 0) {
         return null;
       }
 
-      return (current + direction + filtered.length) % filtered.length;
+      return (
+        (current + direction + photoProjects.length) % photoProjects.length
+      );
     });
   };
 
@@ -134,17 +141,17 @@ export default function Portfolio() {
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = "";
     };
-  }, [selectedIndex, filtered.length]);
+  }, [selectedIndex, photoProjects.length]);
 
   return (
     <main className="portfolio-page">
       {/* =========================================
-          PORTFOLIO HERO
+          PERSONAL PORTFOLIO HERO
       ========================================= */}
 
       <section className="portfolio-hero">
         <div className="portfolio-hero-inner">
-          <p className="portfolio-eyebrow">HILL & HAVEN / SELECTED WORK</p>
+          <p className="portfolio-eyebrow">ALYSSA JONES / CREATIVE PORTFOLIO</p>
 
           <h1>
             Proof is in
@@ -154,8 +161,9 @@ export default function Portfolio() {
 
           <div className="portfolio-hero-bottom">
             <p>
-              From the first spark of an idea to the final finishing touch. A
-              collection of things we've brought to life.
+              A collection of creative work spanning professional projects,
+              independent endeavors, and everything in between. From first
+              concepts to final products, here's what I've been making.
             </p>
 
             <span className="portfolio-hero-mark">↘</span>
@@ -200,7 +208,7 @@ export default function Portfolio() {
           {/* MASONRY GALLERY */}
 
           <div className="portfolio-masonry">
-            {filtered.map((project, index) => (
+            {filtered.map((project) => (
               <button
                 className="portfolio-tile"
                 key={project.id}
@@ -215,16 +223,20 @@ export default function Portfolio() {
                       );
                     }
                   } else {
-                    setSelectedIndex(index);
+                    const photoIndex = photoProjects.findIndex(
+                      (photo) => photo.id === project.id,
+                    );
+
+                    setSelectedIndex(photoIndex);
                   }
                 }}
                 aria-label={
                   project.type === "video"
-                    ? `Watch ${titles[project.category]}`
+                    ? "Watch video"
                     : `View ${titles[project.category]} project`
                 }
               >
-                {/* IMAGE / VIDEO COVER */}
+                {/* PORTFOLIO IMAGE OR VIDEO COVER */}
 
                 <img
                   src={project.src}
@@ -232,7 +244,7 @@ export default function Portfolio() {
                   loading="lazy"
                 />
 
-                {/* TILE OVERLAY */}
+                {/* OVERLAY - NO FILENAMES */}
 
                 <div className="portfolio-tile-overlay">
                   <div>
@@ -274,8 +286,9 @@ export default function Portfolio() {
           </h2>
 
           <p>
-            Good ideas deserve great execution. Let's make something worth
-            looking at.
+            Like what you see? Through Hill & Haven, I help organizations turn
+            ideas into creative materials that communicate, connect, and leave
+            an impression.
           </p>
 
           <a href="/#contact" className="portfolio-cta-button">
@@ -285,25 +298,26 @@ export default function Portfolio() {
       </section>
 
       {/* =========================================
-          PORTFOLIO DISCLAIMER
+          PERSONAL PORTFOLIO ATTRIBUTION
       ========================================= */}
 
       <section className="portfolio-disclaimer">
         <div className="portfolio-disclaimer-inner">
-          <p className="portfolio-disclaimer-label">PORTFOLIO DISCLAIMER</p>
+          <p className="portfolio-disclaimer-label">ABOUT THIS COLLECTION</p>
 
           <p className="portfolio-disclaimer-text">
-            This portfolio represents creative work produced by Hill & Haven's
-            principal throughout her professional career. Not all projects were
-            completed under Hill & Haven Digital Production, LLC. Work created
-            through previous employment or independent engagements is included
-            to demonstrate professional experience and creative capabilities.
+            This is a personal portfolio showcasing work I've created throughout
+            my professional career and independent creative pursuits. Projects
+            featured here may have been completed through previous employment,
+            freelance engagements, personal exploration, or Hill & Haven Digital
+            Production, LLC. Inclusion does not imply that all work was produced
+            for or commissioned through Hill & Haven.
           </p>
         </div>
       </section>
 
       {/* =========================================
-          IMAGE LIGHTBOX
+          PHOTO LIGHTBOX
       ========================================= */}
 
       {selected && (
@@ -354,7 +368,7 @@ export default function Portfolio() {
               <span>{titles[selected.category]}</span>
 
               <span>
-                {selectedIndex + 1} / {filtered.length}
+                {selectedIndex + 1} / {photoProjects.length}
               </span>
             </div>
           </div>
