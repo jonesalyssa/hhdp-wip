@@ -13,7 +13,7 @@ import "./App.css";
 
 import Packages from "./Packages/Packages";
 
-// import Portfolio from "./Portfolio/Portfolio";
+import Portfolio from "./Portfolio/Portfolio";
 
 import brandMark from "./assets/HHCircle.png";
 
